@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1064744064291",
+    "project_id": "android-stories-732bc",
+    "storage_bucket": "android-stories-732bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064744064291:android:aa311dc749cea88a2e6896",
+        "android_client_info": {
+          "package_name": "com.example.newsalter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvTYELHtv7-HKHVR2F947Nj9Feq89tYP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?> <resources>
+    <color name="black">#FF000000</color>.
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary">#AAB354</color>
+    <color name="primary_action">#AAB354</color>
+    <color name="secondary">#FF9C01</color>
+    <color name="secondary_100">#FF9001</color>
+    <color name="secondary_200">#FF8E01</color>
+    <color name="black_default">#000000</color>
+    <color name="black_100">#1E1E2D</color>
+    <color name="black_200">#232533</color>
+    <color name="gray_100">#CDCDE0</color> </resources>
+
+
+<!--    161622-->
