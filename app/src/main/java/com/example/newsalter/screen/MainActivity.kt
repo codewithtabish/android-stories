@@ -2,10 +2,12 @@ package com.example.newsalter.screen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.newsalter.R
@@ -13,8 +15,15 @@ import com.example.newsalter.adapters.CollectionAdapter
 import com.example.newsalter.databinding.ActivityMainBinding
 import com.example.newsalter.models.CollectionModel
 import com.example.newsalter.utils.dummy
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
+    val db:FirebaseFirestore=Firebase.firestore
+
+
     lateinit var binding: ActivityMainBinding
     lateinit var layoutObj: Any
     lateinit var collectionList: ArrayList<CollectionModel>
@@ -24,16 +33,18 @@ class MainActivity : AppCompatActivity() {
         layoutObj = layoutInflater
 
 
+
         binding = ActivityMainBinding.inflate(layoutObj as LayoutInflater)
         setContentView(binding.root)
         collectionList = ArrayList()
         binding.toolbar.title = "Stories"
+        addToDB()
 
-        putData()
-        loadCollections()
+
         binding.menuImage.setOnClickListener {
             showMenuOnImage()
         }
+
 
 
     }
@@ -71,67 +82,27 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun putData() {
-        collectionList.add(
-            CollectionModel(
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnhMzyTEgFydwcSejP8EGglrQG_rK3wWLjpg&usqp=CAU",
-                "Animal Stories "
-            )
-        )
-        collectionList.add(
-            CollectionModel(
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXgH-IXZjIoH5sic_uycBf1nE2btamovMibQ&usqp=CAU",
-                "Short Stories "
-            )
-        )
-        collectionList.add(
-            CollectionModel(
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXgH-IXZjIoH5sic_uycBf1nE2btamovMibQ&usqp=CAU",
-                "Short Stories "
-            )
-        )
-        collectionList.add(
-            CollectionModel(
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXgH-IXZjIoH5sic_uycBf1nE2btamovMibQ&usqp=CAU",
-                "Short Stories "
-            )
-        )
-        collectionList.add(
-            CollectionModel(
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXgH-IXZjIoH5sic_uycBf1nE2btamovMibQ&usqp=CAU",
-                "Short Stories "
-            )
-        )
-        collectionList.add(
-            CollectionModel(
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXgH-IXZjIoH5sic_uycBf1nE2btamovMibQ&usqp=CAU",
-                "Moral Stories "
-            )
-        )
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-        collectionList.add(CollectionModel(dummy.imageAddress1, "Moral Stories "))
-    }
 
 
     private fun loadCollections() {
         binding.mainRecyclerView.adapter = CollectionAdapter(this, collectionList)
         binding.mainRecyclerView.layoutManager = LinearLayoutManager(this)
+
+
+    }
+
+    private fun addToDB(){
+        db.collection("stories")
+            .get()
+            .addOnSuccessListener {
+                for (document in it) {
+                    val collectionType=document.get("CollectionType").toString()
+                    val collectionImage=document.get("CollectionImage").toString()
+                    collectionList.add(CollectionModel(collectionImage,collectionType))
+                }
+                loadCollections()
+            }
+
 
 
     }
