@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var layoutObj: Any
     lateinit var collectionList: ArrayList<CollectionModel>
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutObj = layoutInflater
@@ -44,6 +45,9 @@ class MainActivity : AppCompatActivity() {
         binding.menuImage.setOnClickListener {
             showMenuOnImage()
         }
+
+
+
 
 
 
@@ -103,8 +107,8 @@ class MainActivity : AppCompatActivity() {
                 loadCollections()
             }
 
-
-
     }
+
+
 
 }

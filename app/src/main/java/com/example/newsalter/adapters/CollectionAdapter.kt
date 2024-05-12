@@ -3,6 +3,7 @@ package com.example.newsalter.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,15 +12,29 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsalter.R
 import com.example.newsalter.models.CollectionModel
-import com.google.android.material.imageview.ShapeableImageView
 
+
+//interface OnItemClickListener {
+//    fun onItemClick(item:CollectionModel)
+//}
 class CollectionAdapter(val content:Context,val collectionList:ArrayList<CollectionModel>):
     RecyclerView.Adapter<CollectionAdapter.InternalRowViewHolder>()  {
+
+
+
+    // onClickListener Interface
+    interface OnClickListener {
+        fun onClick(position: Int, model: CollectionModel)
+    }
+
+    private var onClickListener: OnClickListener? = null
+
 
 
     inner  class  InternalRowViewHolder(view:View):RecyclerView.ViewHolder(view){
         val image=view.findViewById<ImageView>(R.id.shapeableImageView)
         val collectionName:TextView=view.findViewById(R.id.collectionName)
+
 
 
 
@@ -44,5 +59,14 @@ class CollectionAdapter(val content:Context,val collectionList:ArrayList<Collect
             .placeholder(R.drawable.placeholder)
             .into(holder.image)
 
+
+        // Finally add an onclickListener to the item.
+
+
     }
+
+    // A function to bind the onclickListener.
+//    fun setOnClickListener(onClickListener: OnClickListener) {
+//        this.onClickListener = onClickListener
+//    }
 }
